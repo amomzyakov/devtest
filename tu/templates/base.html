@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        .menu {}
+
+        .body{}
+    </style>
+</head>
+<body>
+<div class="menu">
+    <ul>
+        <li><a href="/">Отчет</a></li>
+        <li><a href="/new/">Новая заявка</a></li>
+        {% if not user.is_authenticated %}
+            <li><a href="/login/">Войти</a></li>
+        {% else %}
+            <li><a href="/logout/">Выйти</a></li>
+        {% endif %}
+    </ul>
+</div>
+<div class="body">
+{% block content %}
+{% endblock %}
+</div>
+
+</body>
+</html>
