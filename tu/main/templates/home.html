@@ -1,4 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
-HELOO
+<table>
+    <thead>
+    <tr>
+        <th>№ заявки</th>
+        <th>Номер площадки</th>
+        <th>Регион</th>
+        <th>Контрагент</th>
+        <th>Дата отправки</th>
+        <th>Дата ответа</th>
+        <th>Резолюция/статус</th>
+    </tr>
+    {% for item in qs %}
+    <tr>
+        <td>{{ item.applnum }}</td>
+        <td>{{ item.sitenum }}</td>
+        <td>{{ item.region }}</td>
+        <td>{{ item.contractor.name }}</td>
+        <td>{{ item.appl_date }}</td>
+        <td>{{ item.resp_date|default_if_none:"" }}</td>
+        <td>{{ item.resolution }}</td>
+    </tr>
+    {% endfor %}
+    </thead>
+</table>
 {% endblock %}

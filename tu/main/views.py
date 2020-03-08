@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 import django.forms as forms
 from . import models
 
@@ -6,6 +6,11 @@ from . import models
 
 
 def new(request):
+    """
+    Создание новой заявки
+    :param request:
+    :return:
+    """
     class Form(forms.ModelForm):
         class Meta:
             model = models.Appl
@@ -16,15 +21,19 @@ def new(request):
         form = Form(request.POST)
         if form.is_valid():
             form.save()
-
-    return render(request, template_name='new.html', context={'form': form,
-                                                              'action': 'post'})
+            return redirect(reverse('home'))
+    context = {'form': form, 'method':'post'}
+    return render(request, template_name='new.html', context=context)
 
 
 def home(request):
     """
+    заявки
     Список заявок в табличной форме
     :param request:
     :return:
     """
-    return render(request, template_name='home.html', context={})
+    qs = models.Appl.objects.all()
+    context = {}
+    context.update(qs=qs)
+    return render(request, template_name='home.html', context=context)

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<form action="{{ action }}" method="post">
+<form action="#" method="{{method}}">{% csrf_token %}
     {{ form.errors }}
     <table>
     {{ form.as_table }}
